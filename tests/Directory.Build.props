@@ -1,0 +1,7 @@
+﻿<Project>
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <UpstreamDirectoryBuildProps>$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)\..\'))</UpstreamDirectoryBuildProps>
+  </PropertyGroup>
+  <Import Project="$(UpstreamDirectoryBuildProps)" Condition="$(UpstreamDirectoryBuildProps) != ''" />
+</Project>

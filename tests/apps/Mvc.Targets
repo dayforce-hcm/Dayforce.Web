@@ -1,0 +1,50 @@
+﻿<Project>
+  <PropertyGroup>
+    <IsUtilityProject>true</IsUtilityProject>
+    <MasterDllPathPrefix>$(MasterProject)\..\obj\$(Configuration)\net472\$(MasterAsmName)</MasterDllPathPrefix>
+    <MvcBuildViewsOutput>$(MasterDllPathPrefix).MvcBuildViews</MvcBuildViewsOutput>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="$(MasterProject)" ReferenceOutputAssembly="false" />
+  </ItemGroup>
+
+  <!-- This target is expected by Visual Studio. Not needed when building with msbuild on the console. -->
+  <Target Name="CreateManifestResourceNames" />
+
+  <Target Name="PrepareRunAspNetCompiler">
+    <PropertyGroup>
+      <WebProjectOutputDir>$(OutputPath)_PublishedWebsites\$(MasterAsmName)</WebProjectOutputDir>
+      <AspNetCompilerFixedNames>false</AspNetCompilerFixedNames>
+      <AspNetCompilerTargetPath></AspNetCompilerTargetPath>
+    </PropertyGroup>
+    <ItemGroup>
+      <MvcBuildViewsInput Include="$(WebProjectOutputDir)\**\*.cshtml" />
+      <MvcBuildViewsInput Include="$(WebProjectOutputDir)\**\*.aspx" />
+      <MvcBuildViewsInput Include="$(WebProjectOutputDir)\**\*.ascx" />
+      <MvcBuildViewsInput Include="$(WebProjectOutputDir)\**\web.config" />
+      <MvcBuildViewsInput Include="$(MasterDllPathPrefix).dll" />
+      <MvcBuildViewsInput Include="$(MSBuildThisFileFullPath)" />
+    </ItemGroup>
+  </Target>
+  
+  <Target Name="RunAspNetCompiler"
+          BeforeTargets="Build"
+          DependsOnTargets="ResolveProjectReferences;PrepareRunAspNetCompiler"
+          Condition="$(MvcBuildViews) != False And '$(MasterProject)' != '' And '$(MasterAsmName)' != ''"
+          Inputs="@(MvcBuildViewsInput)"
+          Outputs="$(MvcBuildViewsOutput)">
+    <PropertyGroup Condition="'$(AspNetPrecompile)' == true">
+      <AspNetCompilerFixedNames>true</AspNetCompilerFixedNames>
+      <AspNetCompilerTargetPath>$(WebProjectOutputDir)_Precompiled</AspNetCompilerTargetPath>
+    </PropertyGroup>   
+    <Message Text="Running AspNetCompiler for $(WebProjectOutputDir)" Importance="High" Condition="'$(MSBuildRuntimeType)' != 'Core'" />
+    <AspNetCompiler VirtualPath="$(MasterAsmName)"
+                    PhysicalPath="$(WebProjectOutputDir)"
+                    FixedNames="$(AspNetCompilerFixedNames)"
+                    TargetPath="$(AspNetCompilerTargetPath)"
+                    Condition="'$(MSBuildRuntimeType)' != 'Core'" />
+    <Warning Text="AspNetCompiler Task is unsupported when building with dotnet" Condition="'$(MSBuildRuntimeType)' == 'Core'" />
+    <WriteLinesToFile File="$(MvcBuildViewsOutput)" Lines="@(MvcBuildViewsInput)" Overwrite="True"/>
+  </Target>
+</Project>

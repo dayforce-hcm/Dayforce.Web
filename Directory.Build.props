@@ -1,0 +1,18 @@
+﻿<Project>
+  <PropertyGroup>
+    <Product>Dayforce.Web</Product>
+    <Description>Serves as an adapter between Asp.Net Mvc and Asp.Net Core.</Description>
+    <Team>Platform</Team>
+    <PackageOutputPath Condition="'$(TF_BUILD)' == ''">$(MSBuildThisFileDirectory)\packages</PackageOutputPath>
+    <LangVersion>Preview</LangVersion>
+    <MSBuildWarningsAsMessages>$(MSBuildWarningsAsMessages);MSB3277</MSBuildWarningsAsMessages>
+    <ProduceReferenceAssembly Condition="'$(ProduceReferenceAssembly)' == ''">true</ProduceReferenceAssembly>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="PolySharp" Version="1.15.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildThisFileDirectory)\Directory.Build.Template.props" Condition="'$(TF_BUILD)' != ''"/>
+</Project>

@@ -1,0 +1,100 @@
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    padding: 20px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Component Styles */
+.component-demo {
+    margin: 20px 0;
+}
+
+.component-info {
+    color: #666;
+    margin-top: 5px;
+}
+
+/* MVC Component Styles */
+.user-control {
+    background-color: #f0f0f0;
+    border: 2px solid #4CAF50;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+.view-component {
+    background-color: #e8f4f8;
+    border: 2px solid #2196F3;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+.html-helper-component {
+    background-color: #fff3e0;
+    border: 2px solid #FF9800;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+/* Web Forms Component Styles */
+.ascx-user-control {
+    background-color: #f3e5f5;
+    border: 2px solid #9C27B0;
+    padding: 15px;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+.webforms-link {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #f3e5f5;
+    border-radius: 5px;
+    border: 2px solid #9C27B0;
+}
+
+.back-link {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #e8f4f8;
+    border-radius: 5px;
+}
+
+/* Button Styles */
+.button-section {
+    margin: 20px 0;
+    padding: 15px;
+    background-color: #e8f4f8;
+    border-radius: 5px;
+}
+
+.btn-click {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.btn-click:hover {
+    background-color: #0056b3;
+}
+
+.click-info {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}

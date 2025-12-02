@@ -1,0 +1,30 @@
+@* Demonstrates: AreaRegistration, AreaRegistrationContext *@
+<div class="test-section collapsible">
+    <h3 class="section-header">
+        <span class="toggle-icon">+</span>
+        Area Registration
+    </h3>
+    <div class="section-content">
+        <ul class="endpoint-list">
+            <li class="endpoint-item">
+                <span class="endpoint-method method-get">GET</span>
+                <span class="endpoint-path">/TestArea/AreaTest/Index</span>
+                <div class="endpoint-description">
+                    Navigate to the TestArea.
+                </div>
+                <a href="@Url.Action("Index", "AreaTest", new { area = "TestArea" })" class="test-button visit-area-button">
+                    Visit Area
+                </a>
+            </li>
+            <li class="endpoint-item">
+                <span class="endpoint-method method-get">GET</span>
+                <span class="endpoint-path">/TestArea/AreaTest/Hello</span>
+                <div class="endpoint-description">
+                    JSON endpoint for integration testing - demonstrates area-based routing and controller organization
+                </div>
+                <button class="test-button" onclick="testEndpoint('/TestArea/AreaTest/Hello', 'GET', null, this)">Test</button>
+                <pre class="test-result"></pre>
+            </li>
+        </ul>
+    </div>
+</div>

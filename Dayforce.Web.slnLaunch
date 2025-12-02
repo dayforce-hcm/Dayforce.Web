@@ -1,0 +1,12 @@
+[
+    {
+        "Name": "Dashboard All",
+        "Projects": [
+            {
+                "Path": "tests\\apps\\AspNetTest\\AspNetTest.csproj",
+                "Action": "Start",
+                "DebugTarget": "Dashboard (IIS Express)"
+            }
+        ]
+    }
+]

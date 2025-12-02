@@ -1,0 +1,6 @@
+.vs*
+*.user
+[Bb]in/
+[Oo]bj/
+packages
+*.binlog

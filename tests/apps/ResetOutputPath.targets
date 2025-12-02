@@ -1,0 +1,6 @@
+<Project TreatAsLocalProperty="OutputPath;AppendTargetFrameworkToOutputPath">
+  <PropertyGroup>
+    <OutputPath></OutputPath>
+    <AppendTargetFrameworkToOutputPath>True</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+</Project>

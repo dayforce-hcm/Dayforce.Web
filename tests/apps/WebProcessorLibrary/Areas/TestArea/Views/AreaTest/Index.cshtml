@@ -1,0 +1,33 @@
+@{
+    ViewBag.Title = "TestArea";
+}
+
+<link rel="stylesheet" href="@Url.Content("~/Areas/TestArea/Content/TestArea.css")" />
+
+<div class="test-area-page">
+    <h1>TestArea</h1>
+    
+    <p>This page demonstrates area-specific views, CSS, and JavaScript.</p>
+    
+    <div class="area-info">
+        <h2>Area Resources</h2>
+        <ul>
+            <li>View: @ViewContext.View</li>
+            <li>Controller: @ViewContext.RouteData.Values["controller"]</li>
+            <li>Action: @ViewContext.RouteData.Values["action"]</li>
+            <li>Area: @ViewContext.RouteData.DataTokens["area"]</li>
+        </ul>
+    </div>
+    
+    <div class="area-demo">
+        <h2>API Test</h2>
+        <button class="demo-button">Call @Url.Action("Hello")</button>
+        <pre class="demo-output"></pre>
+    </div>
+    
+    <p><a href="@Url.Action("Index", "Home", new { area = "" })">Back to Dashboard</a></p>
+</div>
+
+@section scripts {
+    <script src="@Url.Content("~/Areas/TestArea/Scripts/TestArea.js")"></script>
+}

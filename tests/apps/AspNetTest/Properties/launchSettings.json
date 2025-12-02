@@ -1,0 +1,27 @@
+{
+    "profiles": {
+        "Dashboard (IIS Express)": {
+            "commandName": "IISExpress",
+            "launchBrowser": true,
+            "launchUrl": ""
+        },
+        "Ping (IIS Express)": {
+            "commandName": "IISExpress",
+            "launchBrowser": true,
+            "launchUrl": "Home/ping"
+        },
+        "Test JsonResult (IIS Express)": {
+            "commandName": "IISExpress",
+            "launchBrowser": true,
+            "launchUrl": "Test/JsonResult"
+        }
+    },
+    "iisSettings": {
+        "windowsAuthentication": false,
+        "anonymousAuthentication": true,
+        "iisExpress": {
+            "applicationUrl": "http://localhost:51842/",
+            "sslPort": 0
+        }
+    }
+}

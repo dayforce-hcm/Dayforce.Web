@@ -1,0 +1,25 @@
+@* Utility endpoints for testing infrastructure *@
+<div class="test-section collapsible">
+    <h3 class="section-header">
+        <span class="toggle-icon">+</span>
+        Utility Endpoints
+    </h3>
+    <div class="section-content">
+        <ul class="endpoint-list">
+            <li class="endpoint-item">
+                <span class="endpoint-method method-get">GET</span>
+                <span class="endpoint-path">/Test/Ping</span>
+                <div class="endpoint-description">Health check GET endpoint for integration tests</div>
+                <button class="test-button" onclick="testEndpoint('/Test/Ping', 'GET', null, this)">Test</button>
+                <pre class="test-result"></pre>
+            </li>
+            <li class="endpoint-item">
+                <span class="endpoint-method method-post">POST</span>
+                <span class="endpoint-path">/Test/Pong</span>
+                <div class="endpoint-description">Health check POST endpoint for integration tests</div>
+                <button class="test-button" onclick="testEndpoint('/Test/Pong', 'POST', null, this)">Test</button>
+                <pre class="test-result"></pre>
+            </li>
+        </ul>
+    </div>
+</div>

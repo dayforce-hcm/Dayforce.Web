@@ -1,0 +1,30 @@
+﻿<Project>
+  <PropertyGroup>
+    <BaseOutputPath>$(MSBuildThisFileDirectory)..\bin\</BaseOutputPath>
+    <WebProjectOutputDirInsideProject>False</WebProjectOutputDirInsideProject>
+    <MSBuildWarningsAsMessages>$(MSBuildWarningsAsMessages);MSB3270;NU1702</MSBuildWarningsAsMessages>
+    <MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version>4.1.0</MicrosoftCodeDomProvidersDotNetCompilerPlatform_Version>
+    <MicrosoftNetCompilersToolset_Version>4.14.0</MicrosoftNetCompilersToolset_Version>
+    <WebApplicationsTargetPath>$(MSBuildThisFileDirectory)Microsoft.WebApplication.targets</WebApplicationsTargetPath>
+    <BeforeMicrosoftNETSdkTargets>$(MSBuildThisFileDirectory)\ResetOutputPath.targets</BeforeMicrosoftNETSdkTargets>
+    <UpstreamDirectoryBuildProps>$([MSBuild]::GetPathOfFileAbove('Directory.Build.props', '$(MSBuildThisFileDirectory)\..\'))</UpstreamDirectoryBuildProps>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="**/*.cshtml" />
+    <None Remove="**/*.css" />
+    <None Remove="**/*.js" />
+    <None Remove="**/web.config" />
+    <None Remove="**/*.aspx" />
+    <None Remove="**/*.ascx" />
+    <Content Include="**/*.cshtml" />
+    <Content Include="**/*.css" />
+    <Content Include="**/*.js" />
+    <Content Include="**/web.config" />
+    <Content Include="**/*.aspx" />
+    <Content Include="**/*.ascx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="$(MSBuildThisFileDirectory)..\TestModels\TestModels.csproj" />
+  </ItemGroup>
+  <Import Project="$(UpstreamDirectoryBuildProps)" Condition="$(UpstreamDirectoryBuildProps) != ''" />
+</Project>

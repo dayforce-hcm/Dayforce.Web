@@ -1,0 +1,36 @@
+@{
+    ViewBag.Title = "ASP.NET MVC Test Dashboard";
+}
+
+<link rel="stylesheet" href="@Url.Content("~/Content/TestDashboard.css")?v=3" />
+
+<style>
+    /* Inline critical CSS to ensure it works */
+    .dashboard-container {
+        display: grid !important;
+        grid-template-columns: 1fr 400px !important;
+        gap: 20px !important;
+    }
+</style>
+
+<div class="test-dashboard">
+    <h1>Test Dashboard</h1>
+    
+    <div class="dashboard-container">
+        <div class="left-pane">
+            @Html.Partial("_TestAreaRegistration")
+            
+            @Html.Partial("_TestWebForms")
+            
+            @Html.Partial("_TestUtilityEndpoints")
+        </div>
+        
+        <div class="right-pane">
+            @Html.Partial("_TestSummaryStats")
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="@Url.Content("~/Scripts/TestDashboard.js")?v=3"></script>
+}
