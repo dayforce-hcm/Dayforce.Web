@@ -1,4 +1,9 @@
+#if NET
+using Microsoft.AspNetCore.Mvc;
+#else
 using System.Web.Mvc;
+#endif
+using Controller = Dayforce.Web.Adapter.Controller;
 using TestModels;
 
 namespace WebProcessorLibrary.Areas.TestArea.Controllers;
@@ -6,6 +11,7 @@ namespace WebProcessorLibrary.Areas.TestArea.Controllers;
 /// <summary>
 /// Test controller within the TestArea to demonstrate AreaRegistration
 /// </summary>
+[Area("TestArea")]
 public class AreaTestController : Controller
 {
     /// <summary>

@@ -1,0 +1,27 @@
+﻿<Project>
+  <PropertyGroup>
+    <PublishUrl>$(OutputPath)_PublishedWebsites\$(MSBuildProjectName)\</PublishUrl>
+    <DeployOnBuild>true</DeployOnBuild>
+  </PropertyGroup>
+
+  <Target Name="_GetReferencedProjectPublishItems">
+    <MSBuild Projects="@(ProjectReference)"
+             Targets="GetCopyToPublishDirectoryItems"
+             Properties="TargetFramework=$(TargetFramework)"
+             BuildInParallel="$(BuildInParallel)">
+      <Output TaskParameter="TargetOutputs" ItemName="_ReferencedProjectPublishItems" />
+    </MSBuild>
+    <ItemGroup>
+      <_ReferencedProjectPublishItems Remove="%(_ReferencedProjectPublishItems.Identity)"
+                                      Condition="!$([System.String]::new('%(_ReferencedProjectPublishItems.TargetPath)').StartsWith('wwwroot\'))" />
+    </ItemGroup>
+  </Target>
+
+  <!-- Tell FUTDC about content files that are copied during build -->
+  <Target Name="CollectContentFilesForUpToDateCheck" BeforeTargets="CollectUpToDateCheckBuiltDesignTime" DependsOnTargets="_GetReferencedProjectPublishItems">
+    <ItemGroup>
+      <UpToDateCheckBuilt Include="$(PublishUrl)%(_ReferencedProjectPublishItems.TargetPath)"
+                          Original="%(_ReferencedProjectPublishItems.FullPath)" />
+    </ItemGroup>
+  </Target>
+</Project>

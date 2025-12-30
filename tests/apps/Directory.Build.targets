@@ -1,22 +1,9 @@
-<Project>
+﻿<Project>
   <PropertyGroup>
     <UpstreamDirectoryBuildTargets>$([MSBuild]::GetPathOfFileAbove('Directory.Build.Targets', '$(MSBuildThisFileDirectory)\..\'))</UpstreamDirectoryBuildTargets>
   </PropertyGroup>
 
-  <Target Name="PublishContent" AfterTargets="Build">
-    <Copy SourceFiles="@(Content)" DestinationFolder="$(OutputPath)_PublishedWebsites\AspNetTest\%(RecursiveDir)" SkipUnchangedFiles="true" />
-  </Target>
-
-  <!-- Tell FUTDC about content files that are copied during build -->
-  <Target Name="CollectContentFilesForUpToDateCheck" 
-          BeforeTargets="CollectUpToDateCheckBuiltDesignTime">
-    <ItemGroup>
-      <!-- Map each Content source file to its published destination -->
-      <UpToDateCheckBuilt Include="$(OutputPath)_PublishedWebsites\AspNetTest\%(Content.RecursiveDir)%(Content.Filename)%(Content.Extension)"
-                          Original="%(Content.Identity)"
-                          Condition="'%(Content.Identity)' != ''" />
-    </ItemGroup>
-  </Target>
-
+  <Import Project="$(MSBuildThisFileDirectory)Directory.Build.$(TargetFramework).targets"
+          Condition="Exists('$(MSBuildThisFileDirectory)Directory.Build.$(TargetFramework).targets')" />
   <Import Project="$(UpstreamDirectoryBuildTargets)" Condition="$(UpstreamDirectoryBuildTargets) != ''" />
 </Project>

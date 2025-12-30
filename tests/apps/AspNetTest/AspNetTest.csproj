@@ -15,4 +15,31 @@
   <ItemGroup>
     <ProjectReference Include="..\WebProcessorLibrary\WebProcessorLibrary.csproj" />
   </ItemGroup>
+  <Target Name="AssertPublished" AfterTargets="AfterBuild">
+    <ItemGroup>
+      <MinExpectedPublished Include="Areas\TestArea\Content\TestArea.css" />
+      <MinExpectedPublished Include="Areas\TestArea\Scripts\TestArea.js" />
+      <MinExpectedPublished Include="Areas\TestArea\Views\AreaTest\Index.cshtml" />
+      <MinExpectedPublished Include="Areas\TestArea\Views\_ViewStart.cshtml" />
+      <MinExpectedPublished Include="Areas\TestArea\Views\web.config" />
+      <MinExpectedPublished Include="Content\Site.css" />
+      <MinExpectedPublished Include="Content\TestDashboard.css" />
+      <MinExpectedPublished Include="Content\WebForms.css" />
+      <MinExpectedPublished Include="Scripts\TestDashboard.js" />
+      <MinExpectedPublished Include="Views\Home\_TestAreaRegistration.cshtml" />
+      <MinExpectedPublished Include="Views\Home\_TestSummaryStats.cshtml" />
+      <MinExpectedPublished Include="Views\Home\_TestUtilityEndpoints.cshtml" />
+      <MinExpectedPublished Include="Views\Home\_TestWebForms.cshtml" />
+      <MinExpectedPublished Include="Views\Home\Index.cshtml" />
+      <MinExpectedPublished Include="Views\Shared\_Layout.cshtml" />
+      <MinExpectedPublished Include="Views\_ViewStart.cshtml" />
+      <MinExpectedPublished Include="Views\web.config" />
+      <MinExpectedPublished Include="WebForms\Controls\TestUserControl.ascx" />
+      <MinExpectedPublished Include="WebForms\SimpleTest.aspx" />
+      <MinExpectedPublished Include="Global.asax" />
+      <MinExpectedPublished Include="Web.config" />
+    </ItemGroup>
+    <Error Condition="!Exists('$(OutputPath)_PublishedWebsites\AspNetTest\%(MinExpectedPublished.Identity)')"
+           Text="$(OutputPath)_PublishedWebsites\AspNetTest\%(MinExpectedPublished.Identity) is missing" />
+  </Target>
 </Project>

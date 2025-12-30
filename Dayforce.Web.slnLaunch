@@ -6,6 +6,11 @@
                 "Path": "tests\\apps\\AspNetTest\\AspNetTest.csproj",
                 "Action": "Start",
                 "DebugTarget": "Dashboard (IIS Express)"
+            },
+            {
+                "Path": "tests\\apps\\AspNetCoreTest\\AspNetCoreTest.csproj",
+                "Action": "Start",
+                "DebugTarget": "Dashboard (Kestrel watch)"
             }
         ]
     }

@@ -1,4 +1,8 @@
+#if NET
+using Microsoft.AspNetCore.Mvc;
+#else
 using System.Web.Mvc;
+#endif
 
 namespace WebProcessorLibrary.Controllers;
 

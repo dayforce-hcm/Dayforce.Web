@@ -1,4 +1,9 @@
+#if NET
+using Microsoft.AspNetCore.Mvc;
+#else
 using System.Web.Mvc;
+#endif
+using Controller = Dayforce.Web.Adapter.Controller;
 using TestModels;
 
 namespace WebProcessorLibrary.Controllers;
