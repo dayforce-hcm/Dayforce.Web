@@ -27,6 +27,7 @@ public class AllWebFrameworksFixture : IDisposable
         public required bool IsNetCore { get; init; }
         public required string Key { get; init; }
         public required int Port { get; init; }
+        public required string ProjectPath { get; init; }
         public required string WebAppPath { get; init; }
         public required string RootPath { get; init; }
         public bool ServerReady { get; set; }
@@ -35,6 +36,7 @@ public class AllWebFrameworksFixture : IDisposable
     public static readonly (string Key, string ProjectName)[] ProjectDefinitions =
     [
         ("Asp.Net", "AspNetTest"),
+        ("Asp.Net Core", "AspNetCoreTest"),
     ];
 
     public readonly List<FrameworkConfig> Frameworks = [];
@@ -50,14 +52,16 @@ public class AllWebFrameworksFixture : IDisposable
 
         foreach (var (key, projectName) in ProjectDefinitions)
         {
+            bool isNetCore = key.Contains("Core");
             var fullProjectPath = Path.Combine(solutionDir, "tests\\apps", projectName);
-            var (rootPath, port) = ExtractDataFromLaunchSettings(fullProjectPath);
+            var (rootPath, port) = ExtractDataFromLaunchSettings(fullProjectPath, isNetCore);
 
             var framework = new FrameworkConfig
             {
-                IsNetCore = key.Contains("Core"),
+                IsNetCore = isNetCore,
                 Key = key,
-                WebAppPath = $@"{solutionDir}\tests\bin\{CONFIGURATION}\net472\_PublishedWebsites\{projectName}",
+                ProjectPath = fullProjectPath,
+                WebAppPath = $@"{solutionDir}\tests\bin\{CONFIGURATION}\{(isNetCore ? "net9.0" : "net472")}\_PublishedWebsites\{projectName}",
                 Port = port,
                 RootPath = rootPath,
             };
@@ -77,7 +81,7 @@ public class AllWebFrameworksFixture : IDisposable
         }
     }
 
-    private static (string rootPath, int port) ExtractDataFromLaunchSettings(string projectPath)
+    private static (string rootPath, int port) ExtractDataFromLaunchSettings(string projectPath, bool isNetCore)
     {
         var launchSettingsPath = Path.Combine(projectPath, "Properties", "launchSettings.json");
 
@@ -92,7 +96,11 @@ public class AllWebFrameworksFixture : IDisposable
         var root = document.RootElement;
 
         // Read port from iisSettings.iisExpress.applicationUrl
-        var applicationUrl = root.GetProperty("iisSettings").GetProperty("iisExpress").GetProperty("applicationUrl").GetString();
+        var applicationUrl = (isNetCore
+            ? root.GetProperty("profiles").GetProperty("Ping (Kestrel)")
+            : root.GetProperty("iisSettings").GetProperty("iisExpress")
+        ).GetProperty("applicationUrl").GetString();
+
         if (applicationUrl == null)
         {
             throw new InvalidOperationException("applicationUrl not found in launchSettings.json");
@@ -100,7 +108,8 @@ public class AllWebFrameworksFixture : IDisposable
 
         var port = new Uri(applicationUrl).Port;
 
-        var pingUrl = root.GetProperty("profiles").GetProperty("Ping (IIS Express)").GetProperty("launchUrl").ToString();
+        var pingUrl = root.GetProperty("profiles").GetProperty(isNetCore ? "Ping (Kestrel)" : "Ping (IIS Express)").GetProperty("launchUrl").ToString();
+
         if (!pingUrl.EndsWith("/ping"))
         {
             throw new InvalidOperationException("Expected launchUrl for Ping (IIS Express) to end with /ping in launchSettings.json");
@@ -136,7 +145,14 @@ public class AllWebFrameworksFixture : IDisposable
             m_config = config;
             m_output = output;
 
-            Helper.StartIISExpress(m_config.WebAppPath, m_config.Port, m_output);
+            if (m_config.IsNetCore)
+            {
+                Helper.StartKestrel(m_config.ProjectPath, m_config.Port, m_output);
+            }
+            else
+            {
+                Helper.StartIISExpress(m_config.WebAppPath, m_config.Port, m_output);
+            }
             m_readyTask = WaitForServerReadyAsync().ConfigureAwait(false);
         }
 
@@ -144,7 +160,14 @@ public class AllWebFrameworksFixture : IDisposable
         {
             try
             {
-                Helper.StopIISExpress(m_config.WebAppPath, m_config.Port, m_output);
+                if (m_config.IsNetCore)
+                {
+                    Helper.StopKestrel(m_config.ProjectPath, m_config.Port, m_output);
+                }
+                else
+                {
+                    Helper.StopIISExpress(m_config.WebAppPath, m_config.Port, m_output);
+                }
             }
             catch (Exception ex)
             {

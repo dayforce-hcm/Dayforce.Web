@@ -1,0 +1,11 @@
+﻿<Project>
+  <PropertyGroup>
+    <AddRazorSupportForMvc>true</AddRazorSupportForMvc>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Remove="Views/**/web.config;Areas/**/Views/**/web.config" />
+  </ItemGroup>
+
+  <Import Project="$(MSBuildThisFileDirectory)WebApp.$(TargetFramework).targets"
+          Condition="'$(UsingMicrosoftNETSdkWebProjectSystem)' == true And Exists('$(MSBuildThisFileDirectory)WebApp.$(TargetFramework).targets')" />
+</Project>

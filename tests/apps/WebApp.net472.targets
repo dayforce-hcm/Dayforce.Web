@@ -1,0 +1,38 @@
+﻿<Project>
+  <Target Name="_GetReferencedProjectPublishItems">
+    <MSBuild Projects="@(ProjectReference)"
+             Targets="GetCopyToPublishDirectoryItems"
+             Properties="TargetFramework=$(TargetFramework)"
+             BuildInParallel="$(BuildInParallel)">
+      <Output TaskParameter="TargetOutputs" ItemName="_ReferencedProjectPublishItems" />
+    </MSBuild>
+    <ItemGroup>
+      <_ReferencedProjectPublishItems Update="%(_ReferencedProjectPublishItems.Identity)"
+                                      Condition="$([System.String]::new('%(_ReferencedProjectPublishItems.TargetPath)').StartsWith('wwwroot\'))"
+                                      Link="$([System.String]::new('%(_ReferencedProjectPublishItems.TargetPath)').Substring(8))" />
+
+      <_ReferencedProjectPublishItems Update="%(_ReferencedProjectPublishItems.Identity)"
+                                      Condition="!$([System.String]::new('%(_ReferencedProjectPublishItems.TargetPath)').StartsWith('wwwroot\'))"
+                                      Link="%(_ReferencedProjectPublishItems.TargetPath)" />
+    </ItemGroup>
+  </Target>
+
+  <Target Name="Before_CopyWebApplicationLegacy" DependsOnTargets="_GetReferencedProjectPublishItems">
+    <ItemGroup>
+      <Content Include="%(_ReferencedProjectPublishItems.FullPath)" Link="%(_ReferencedProjectPublishItems.Link)" />
+    </ItemGroup>
+  </Target>
+
+  <!-- Tell FUTDC about content files that are copied during build -->
+  <Target Name="CollectContentFilesForUpToDateCheck"
+          BeforeTargets="CollectUpToDateCheckBuiltDesignTime;CollectUpToDateCheckInputDesignTime"
+          DependsOnTargets="_GetReferencedProjectPublishItems">
+    <ItemGroup>
+      <UpToDateCheckInput Include="%(_ReferencedProjectPublishItems.FullPath)" Set="ReferencedProjectPublishItems"/>
+
+      <UpToDateCheckBuilt Include="$(WebProjectOutputDir)\%(_ReferencedProjectPublishItems.Link)"
+                          Original="%(_ReferencedProjectPublishItems.FullPath)" 
+                          Set="ReferencedProjectPublishItems" />
+    </ItemGroup>
+  </Target>
+</Project>

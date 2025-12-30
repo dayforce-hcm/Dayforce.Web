@@ -1,0 +1,45 @@
+{
+    "profiles": {
+        "Dashboard (Kestrel)": {
+            "commandName": "Project",
+            "launchBrowser": true,
+            "launchUrl": "",
+            "environmentVariables": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_CONTENTROOT": "_PublishedWebsites\\AspNetCoreTest"
+            },
+            "applicationUrl": "http://localhost:52000"
+        },
+        "Dashboard (Kestrel watch)": {
+            "commandName": "Executable",
+            "executablePath": "dotnet",
+            "commandLineArgs": "watch run --no-hot-reload",
+            "workingDirectory": "$(ProjectDir)",
+            "launchBrowser": true,
+            "launchUrl": "http://localhost:52000",
+            "environmentVariables": {
+                "ASPNETCORE_ENVIRONMENT": "Development"
+            }
+        },
+        "Ping (Kestrel)": {
+            "commandName": "Project",
+            "launchBrowser": true,
+            "launchUrl": "Home/ping",
+            "environmentVariables": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_CONTENTROOT": "_PublishedWebsites\\AspNetCoreTest"
+            },
+            "applicationUrl": "http://localhost:52000"
+        },
+        "Test JsonResult (Kestrel)": {
+            "commandName": "Project",
+            "launchBrowser": true,
+            "launchUrl": "Test/JsonResult",
+            "environmentVariables": {
+                "ASPNETCORE_ENVIRONMENT": "Development",
+                "ASPNETCORE_CONTENTROOT": "_PublishedWebsites\\AspNetCoreTest"
+            },
+            "applicationUrl": "http://localhost:52000"
+        }
+    }
+}

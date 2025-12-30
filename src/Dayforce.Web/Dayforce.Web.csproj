@@ -1,9 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net472</TargetFrameworks>
+    <TargetFrameworks>net9.0;net472</TargetFrameworks>
     <MSBuildWarningsAsMessages Condition="'$(TargetFramework)' == net472">$(MSBuildWarningsAsMessages);MSB3270</MSBuildWarningsAsMessages>
   </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dayforce.Web.NetFramework\Dayforce.Web.NetFramework.csproj" Condition="'$(TargetFramework)' == 'net472'"/>
+    <ProjectReference Include="..\Dayforce.Web.NetCore\Dayforce.Web.NetCore.csproj" Condition="'$(TargetFramework)' == 'net9.0'"/>
   </ItemGroup>
 </Project>

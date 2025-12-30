@@ -1,0 +1,20 @@
+﻿<Project>
+  <PropertyGroup>
+    <EnableDefaultRazorGenerateItems>false</EnableDefaultRazorGenerateItems>
+    <RazorCompileOnBuild>false</RazorCompileOnBuild>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Remove="**/*.aspx" />
+    <None Remove="**/*.ascx" />
+    <Content Include="**/*.aspx" />
+    <Content Include="**/*.ascx" />
+    <Content Remove="Views/_ViewImports.cshtml" />
+    <!-- Removing/Including wwwroot content makes sure the RecursiveDir metadata would not include wwwroot/ prefix -->
+    <Content Remove="wwwroot/**/*.*" />
+    <Content Include="wwwroot/**/*.*" />
+    <Content Update="@(Content)" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <Import Project="$(MSBuildThisFileDirectory)WebApp.$(TargetFramework).targets"
+          Condition="'$(UsingMSBuildSDKSystemWeb)' == true And Exists('$(MSBuildThisFileDirectory)WebApp.$(TargetFramework).targets')" />
+</Project>

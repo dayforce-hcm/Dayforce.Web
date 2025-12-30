@@ -1,0 +1,40 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WebProcessorLibrary\WebProcessorLibrary.csproj" />
+  </ItemGroup>
+  <Target Name="AssertPublished" AfterTargets="AfterPublish">
+    <ItemGroup>
+      <MinExpectedPublished Include="wwwroot\Areas\TestArea\Content\TestArea.css" />
+      <MinExpectedPublished Include="wwwroot\Areas\TestArea\Content\TestArea.css.br" />
+      <MinExpectedPublished Include="wwwroot\Areas\TestArea\Content\TestArea.css.gz" />
+      <MinExpectedPublished Include="wwwroot\Areas\TestArea\Scripts\TestArea.js" />
+      <MinExpectedPublished Include="wwwroot\Areas\TestArea\Scripts\TestArea.js.br" />
+      <MinExpectedPublished Include="wwwroot\Areas\TestArea\Scripts\TestArea.js.gz" />
+      <MinExpectedPublished Include="wwwroot\Content\Site.css" />
+      <MinExpectedPublished Include="wwwroot\Content\Site.css.br" />
+      <MinExpectedPublished Include="wwwroot\Content\Site.css.gz" />
+      <MinExpectedPublished Include="wwwroot\Content\TestDashboard.css" />
+      <MinExpectedPublished Include="wwwroot\Content\TestDashboard.css.br" />
+      <MinExpectedPublished Include="wwwroot\Content\TestDashboard.css.gz" />
+      <MinExpectedPublished Include="wwwroot\Content\WebForms.css" />
+      <MinExpectedPublished Include="wwwroot\Content\WebForms.css.br" />
+      <MinExpectedPublished Include="wwwroot\Content\WebForms.css.gz" />
+      <MinExpectedPublished Include="wwwroot\Scripts\TestDashboard.js" />
+      <MinExpectedPublished Include="wwwroot\Scripts\TestDashboard.js.br" />
+      <MinExpectedPublished Include="wwwroot\Scripts\TestDashboard.js.gz" />
+      <MinUnexpectedPublished Include="Areas" />
+      <MinUnexpectedPublished Include="Content" />
+      <MinUnexpectedPublished Include="Scripts" />
+      <MinUnexpectedPublished Include="Views" />
+    </ItemGroup>
+    <Error Condition="!Exists('$(OutputPath)_PublishedWebsites\AspNetCoreTest\%(MinExpectedPublished.Identity)')"
+           Text="$(OutputPath)_PublishedWebsites\AspNetCoreTest\%(MinExpectedPublished.Identity) is missing" />
+    <Error Condition="Exists('$(OutputPath)_PublishedWebsites\AspNetCoreTest\%(MinUnexpectedPublished.Identity)')"
+           Text="$(OutputPath)_PublishedWebsites\AspNetCoreTest\%(MinUnexpectedPublished.Identity) should not exist" />
+  </Target>
+</Project>
